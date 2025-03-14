@@ -18,7 +18,7 @@ Z = g(X1, X2)
 # Gradient descent parameters
 start_point = [4, 4]
 learning_rate = 0.001
-tolerance = 0.001
+tolerance = 0.01
 max_iter = 1000
 
 # Running the algorithm
@@ -26,6 +26,7 @@ minimum, history = gradient_descent(gradient_g, start_point, learning_rate, tole
 
 # Converting history to a NumPy array
 history = np.array(history)
+print(history[-1], g(history[-1][0],history[-1][1]))
 
 # Creating the figure and 3D plot
 fig = plt.figure(figsize=(10, 6))
@@ -59,10 +60,15 @@ def update(i):
     
     return path, min_scatter
 
+
 # Creating the animation
 ani = animation.FuncAnimation(fig, update, frames=len(history), interval=50, blit=False)
 
 # Saving as GIF
-ani.save("gradient_descent_3D.gif", writer="pillow", fps=20)
+ani.save("Zadanie_1/gradient_descent_3D.gif", writer="pillow", fps=20)
+
+# Save the last frame as JPG
+update(len(history) - 1)  # Ensure the last frame is displayed
+plt.savefig("gradient_descent_3D_final.jpg")
 
 plt.show()

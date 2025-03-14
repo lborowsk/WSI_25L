@@ -10,14 +10,15 @@ def f(x):
 
 # Gradient descent parameters
 start_point = [2]
-learning_rate = 0.001
+learning_rate = 0.01
 tolerance = 0.001
-max_iter = 10000
+max_iter = 1000
 
 # Running the algorithm
 minimum, history = gradient_descent(gradient_f, start_point, learning_rate, tolerance, max_iter)
 history_x = np.array(history)[:, 0]  
 history_f = f(history_x)
+print(history_x[-1], history_f[-1])
 
 # Preparing the plot
 x = np.linspace(-3, 3, 400)
@@ -39,13 +40,19 @@ final_min, = ax.plot([], [], 'rx', markersize=10, label="Minimum")
 def update(i):
     point.set_data(history_x[:i+1], history_f[:i+1])
     if i == len(history_x) - 1:
-        final_min.set_data([history_x[i]], [history_f[i]])  # Fix: pass lists
+        final_min.set_data([history_x[i]], [history_f[i]])
     return point, final_min
+
 
 # Creating the animation
 ani = animation.FuncAnimation(fig, update, frames=len(history_x), interval=50, blit=True)
 
 # Save as GIF
-ani.save("gradient_descent.gif", writer="pillow", fps=20)
+ani.save("Zadanie_1/gradient_descent.gif", writer="pillow", fps=20)
+
+
+# Save the last frame as JPG
+update(len(history_x) - 1)  # Ensure the last frame is displayed
+plt.savefig("gradient_descent_final.jpg")
 
 plt.show()
