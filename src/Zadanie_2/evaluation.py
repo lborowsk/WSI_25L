@@ -19,3 +19,10 @@ def evaluate(x, size=20):
     1 - grid
     )
     return points.reshape(np.shape(x)).sum(-1)
+
+def find_the_fittest(population: np.ndarray):
+    fitness = evaluate(population)
+    best_index = np.argmax(fitness)
+    best_individual = population[best_index]
+    best_fitness = fitness[best_index]
+    return best_individual, best_fitness
