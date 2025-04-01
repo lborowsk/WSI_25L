@@ -4,14 +4,14 @@ from mutation import mutate
 from selection import roulette_selection
 from evaluation import find_the_fittest
 
-def evolution(population: np.ndarray, genome_size: int, max_iter:int , mutation_rate: float):
+def evolution(population: np.ndarray, genome_size: int, max_iter:int , mutation_rate: float, crossover_prob: float):
     iter = 0
     pop_size = population.shape[0]
     best_individual, best_fitness = find_the_fittest(population)
     while (iter < max_iter):
         parents = roulette_selection(population, pop_size)
         half = len(parents) // 2
-        offspring = crossover(parents[:half], parents[half:], genome_size)
+        offspring = crossover(parents[:half], parents[half:], genome_size, crossover_prob)
         mutate(offspring, mutation_rate)
         new_best_individual, new_best_fitness = find_the_fittest(offspring)
         if new_best_fitness > best_fitness:
