@@ -13,16 +13,14 @@ def shift_b(x):
 
 def evaluate(x, size=20):
     assert np.shape(x)[-1] == size * size
-    grid = np.cast[np.int_](np.reshape(x, (-1, size, size)))
+    grid = np.asarray(np.reshape(x, (-1, size, size)), dtype=np.int_)
     points = np.minimum(
-    shift_r(grid) + shift_l(grid) + shift_t(grid) + shift_b(grid),
-    1 - grid
+        shift_r(grid) + shift_l(grid) + shift_t(grid) + shift_b(grid),
+        1 - grid
     )
-    return points.reshape(np.shape(x)).sum(-1)
+    return points.reshape(np.shape(x)).sum(-1), grid, points
 
 def find_the_fittest(population: np.ndarray):
-    fitness = evaluate(population)
+    fitness = evaluate(population)[0]
     best_index = np.argmax(fitness)
-    best_individual = population[best_index]
-    best_fitness = fitness[best_index]
-    return best_individual, best_fitness
+    return population[best_index], fitness[best_index]

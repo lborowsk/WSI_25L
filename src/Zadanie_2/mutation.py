@@ -1,5 +1,8 @@
 import numpy as np
 
 def mutate(population: np.ndarray, probability: float):
-    mask = np.random.rand(*population.shape) < probability
-    population[mask] = 1 - population[mask]
+    for i in range(len(population)):
+        mask = np.random.rand(len(population[i])) < probability
+        population[i][mask] = 1 - population[i][mask]
+    
+    return population

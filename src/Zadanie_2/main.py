@@ -1,7 +1,6 @@
 import numpy as np
 from evolution import evolution
 from visualisation import visualize_board
-from evaluation import find_the_fittest
 
 population = np.random.randint(0, 2, size=(100, 400))
 '''
@@ -10,6 +9,6 @@ print(random_fitness)
 visualize_board(random_fittest)
 
 '''
-best_individual, best_fitness = evolution(population, 700, 1000, 0.005, 0.8)
+best_individual, best_fitness = evolution(population, 10000, 0.005, 0.8, 25)
 print(best_individual, best_fitness)
 visualize_board(best_individual)
