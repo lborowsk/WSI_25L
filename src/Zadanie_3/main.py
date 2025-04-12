@@ -10,13 +10,13 @@ maxPlayer = game.first_player
 
 while not game.is_finished():
     if game.get_current_player() is maxPlayer:
-        move = make_best_move(game.state, 3, maxPlayer)
+        move = make_best_move(game.state, 2, maxPlayer)
         game.make_move(move)
     else:
-        move = make_best_move(game.state, 3, maxPlayer)
+        move = make_best_move(game.state, 4, maxPlayer)
         game.make_move(move)
-    print(evaluate(game.state, maxPlayer))
     print(game.state)
+    print(evaluate(game.state, maxPlayer))
 
 winner = game.get_winner()
 if winner is None:

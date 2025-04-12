@@ -21,7 +21,7 @@ def make_best_move(game_state: State, depth: int, maximizingPlayer: Player):
     values = []
     for move in game_state.get_moves():
         moves.append(move)
-        values.append(alphabeta(game_state.make_move(move), depth, float('-inf'), float('inf'), maximizingPlayer, evaluate))
+        values.append(alphabeta(game_state.make_move(move), depth-1, float('-inf'), float('inf'), maximizingPlayer, evaluate))
     
     if game_state._current_player is maximizingPlayer:
         return moves[random_best_move(values, True)]

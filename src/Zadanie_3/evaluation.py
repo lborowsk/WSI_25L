@@ -2,7 +2,7 @@ import math
 from two_player_games.games.connect_four import ConnectFourState
 from two_player_games.player import Player
 
-def evaluate(state: 'ConnectFourState', maximizing_player: 'Player') -> float:
+def evaluate(state: ConnectFourState, maximizing_player: Player) -> float:
     """
     Heuristic based on the power of continuous chips in lines.
     Returns:
@@ -26,6 +26,7 @@ def evaluate(state: 'ConnectFourState', maximizing_player: 'Player') -> float:
         score -= _evaluate_line(state, opponent, dx, dy)
 
     # Bonus for center control (middle 3 columns)
+
     center_cols = [len(state.fields) // 2 - 1, len(state.fields) // 2, len(state.fields) // 2 + 1]
     for col in center_cols:
         if 0 <= col < len(state.fields):
