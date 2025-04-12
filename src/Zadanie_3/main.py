@@ -1,22 +1,21 @@
 from two_player_games.games.connect_four import ConnectFour
 from evaluation import evaluate
-from alphabeta_player import AlphabetaPlayer
+from alphabeta_player import make_best_move
 import random
 
 
 game = ConnectFour()
-player_1 = AlphabetaPlayer(2, True, game.first_player, evaluate)
-player_2 = AlphabetaPlayer(2, False, game.second_player, evaluate)
+maxPlayer = game.first_player
 
 
 while not game.is_finished():
-    if game.state.get_current_player() is game.first_player:
-        move = player_1.make_best_move(game.state)
+    if game.get_current_player() is maxPlayer:
+        move = make_best_move(game.state, 3, maxPlayer)
         game.make_move(move)
     else:
-        move = player_2.make_best_move(game.state)
+        move = make_best_move(game.state, 3, maxPlayer)
         game.make_move(move)
-    print(evaluate(game.state, player_2))
+    print(evaluate(game.state, maxPlayer))
     print(game.state)
 
 winner = game.get_winner()

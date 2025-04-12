@@ -5,31 +5,26 @@ from alphabeta import alphabeta
 from evaluation import evaluate
 import random
 
-class AlphabetaPlayer:
-    
-    def __init__(self, depth: int, maximizing: bool, player: Player, evaluate: callable):
-        self.depth = depth
-        self.maximizing = maximizing
-        self.player = player
-        self.evaluate = evaluate
-    
-    def random_best_move(self, lst: list[int]):
-        if self.maximizing:
-            max_val = max(lst)
-            max_indices = [i for i, x in enumerate(lst) if x == max_val]
-            return random.choice(max_indices)
-        else:
-            min_val = min(lst)
-            min_indices = [i for i, x in enumerate(lst) if x == min_val]
-            return random.choice(min_indices)
+def random_best_move(lst: list[int], maximizing: bool):
+    if maximizing:
+        max_val = max(lst)
+        max_indices = [i for i, x in enumerate(lst) if x == max_val]
+        return random.choice(max_indices)
+    else:
+        min_val = min(lst)
+        min_indices = [i for i, x in enumerate(lst) if x == min_val]
+        return random.choice(min_indices)
 
 
-    def make_best_move(self, game_state: State):
-        moves = []
-        values = []
-        for move in game_state.get_moves():
-            moves.append(move)
-            values.append(alphabeta(game_state.make_move(move), self.depth, float('-inf'), float('inf'), self.player, self.evaluate))
-        
-        return moves[self.random_best_move(values)]
+def make_best_move(game_state: State, depth: int, maximizingPlayer: Player):
+    moves = []
+    values = []
+    for move in game_state.get_moves():
+        moves.append(move)
+        values.append(alphabeta(game_state.make_move(move), depth, float('-inf'), float('inf'), maximizingPlayer, evaluate))
+    
+    if game_state._current_player is maximizingPlayer:
+        return moves[random_best_move(values, True)]
+    else:
+        return moves[random_best_move(values, False)]
         

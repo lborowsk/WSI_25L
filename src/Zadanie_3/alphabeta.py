@@ -6,7 +6,7 @@ from two_player_games.state import State
 
 def alphabeta(game_state: State, depth: int, a, b, maximizingPlayer: Player, evaluate: callable):
     
-    if depth == 0 or game_state.is_finished:
+    if depth == 0 or game_state.is_finished():
         return evaluate(game_state, maximizingPlayer)
     
     if game_state.get_current_player() is maximizingPlayer:
