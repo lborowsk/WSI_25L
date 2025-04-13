@@ -1,7 +1,6 @@
 from two_player_games.games.connect_four import ConnectFour
 from evaluation import evaluate
-from alphabeta_player import make_best_move
-import random
+from best_move import make_best_move
 
 
 game = ConnectFour()
