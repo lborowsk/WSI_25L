@@ -7,16 +7,16 @@ class MyDecisionTree:
         self.tree = None
     
     def _entropy(self, y):
-        """Oblicza entropię zbioru etykiet"""
+        """Calculate entropy of a set of labels"""
         counts = np.bincount(y)
         probs = counts / len(y)
         return -np.sum([p * np.log2(p) for p in probs if p > 0])
     
     def _information_gain(self, X_col, y):
-        """Oblicza przyrost informacji dla podziału według danej kolumny"""
+        """Calculate information gain for a split based on given column"""
         parent_entropy = self._entropy(y)
         
-        # Wyznacz unikalne wartości i podział zbioru
+        # Get unique values and split the dataset
         unique_vals = np.unique(X_col)
         child_entropy = 0
         
@@ -28,25 +28,25 @@ class MyDecisionTree:
         return parent_entropy - child_entropy
     
     def _best_feature(self, X, y, feature_indices):
-        """Znajduje najlepszy atrybut do podziału"""
+        """Find the best feature to split on"""
         gains = [self._information_gain(X[:, i], y) for i in feature_indices]
         best_idx = np.argmax(gains)
         return feature_indices[best_idx]
     
     def _build_tree(self, X, y, feature_indices, depth=0):
-        """Rekurencyjna funkcja budująca drzewo"""
-        # Warunki stopu
+        """Recursive function to build the tree"""
+        # Stopping conditions
         if len(np.unique(y)) == 1:
             return {'class': y[0]}
             
         if len(feature_indices) == 0 or (self.max_depth and depth >= self.max_depth):
             return {'class': Counter(y).most_common(1)[0][0]}
         
-        # Wybierz najlepszy atrybut
+        # Select best feature
         best_feat = self._best_feature(X, y, feature_indices)
         remaining_features = [f for f in feature_indices if f != best_feat]
         
-        # Buduj poddrzewa
+        # Build subtrees
         tree = {'feature': best_feat, 'children': {}}
         unique_vals = np.unique(X[:, best_feat])
         
@@ -64,12 +64,12 @@ class MyDecisionTree:
         return tree
     
     def fit(self, X, y):
-        """Trenowanie drzewa"""
+        """Train the tree"""
         feature_indices = list(range(X.shape[1]))
         self.tree = self._build_tree(X, y, feature_indices)
     
     def _predict_sample(self, sample, tree):
-        """Rekurencyjna predykcja dla pojedynczej próbki"""
+        """Recursive prediction for a single sample"""
         if 'class' in tree:
             return tree['class']
         
@@ -77,11 +77,11 @@ class MyDecisionTree:
         if feat_value in tree['children']:
             return self._predict_sample(sample, tree['children'][feat_value])
         else:
-            # Jeśli wartość nie była widziana w trakcie uczenia, zwróć najczęstszą klasę
+            # If value wasn't seen during training, return most common class
             return self._get_most_common_class(tree)
     
     def _get_most_common_class(self, tree):
-        """Pomocnicza funkcja do znajdowania najczęstszej klasy w poddrzewie"""
+        """Helper function to find the most common class in a subtree"""
         if 'class' in tree:
             return tree['class']
         
@@ -92,5 +92,5 @@ class MyDecisionTree:
         return Counter(classes).most_common(1)[0][0]
     
     def predict(self, X):
-        """Predykcja dla wielu próbek"""
+        """Predict for multiple samples"""
         return np.array([self._predict_sample(x, self.tree) for x in X])

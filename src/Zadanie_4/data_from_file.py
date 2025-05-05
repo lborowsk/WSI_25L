@@ -11,12 +11,11 @@ def data_from_csv(filename):
     label_encoders = {}
     for col in categorical_cols:
         le = LabelEncoder()
-        data[col] = le.fit_transform(data[col].astype(str))  # .astype(str) dla bezpieczeństwa
-        label_encoders[col] = le  # zapis enkoderów do późniejszego użycia
+        data[col] = le.fit_transform(data[col].astype(str))  # Using .astype(str) for safety
+        label_encoders[col] = le  # Save encoders for later use
 
-    # 4. Podział na cechy (X) i etykietę (y)
+    # Split into features (X) and labels (y)
     X = data.drop('HeartDisease', axis=1).values
     y = data['HeartDisease'].values
 
     return X, y
-
