@@ -2,7 +2,7 @@ from two_player_games.game import Game
 from two_player_games.state import State
 from two_player_games.player import Player
 from alphabeta import alphabeta
-from evaluation import evaluate
+from Zadanie_4.evaluation import evaluate
 import random
 
 def random_best_move(lst: list[int], maximizing: bool):

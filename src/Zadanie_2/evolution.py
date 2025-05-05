@@ -2,7 +2,7 @@ import numpy as np
 from crossover import crossover
 from mutation import mutate
 from selection import roulette_selection
-from evaluation import find_the_fittest, evaluate
+from Zadanie_4.evaluation import find_the_fittest, evaluate
 
 def evolution(population: np.ndarray, max_iter: int, 
               mutation_rate: float, crossover_prob: float, elite_size: int = 1):

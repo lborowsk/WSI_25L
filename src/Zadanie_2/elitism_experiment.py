@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from evolution import evolution
-from evaluation import evaluate
+from Zadanie_4.evaluation import evaluate
 
 def run_elitism_experiment(pop_size=100, genome_size=400, max_iter=10000, 
                           mutation_rate=0.005, crossover_prob=0.8, trials=1):

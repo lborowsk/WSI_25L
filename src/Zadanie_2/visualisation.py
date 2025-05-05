@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
-from evaluation import evaluate
+from Zadanie_4.evaluation import evaluate
 from matplotlib.patches import Rectangle
 
 def visualize_board(board, size=20):
