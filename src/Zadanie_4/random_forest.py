@@ -1,6 +1,6 @@
 import numpy as np
 from collections import Counter
-from sklearn.tree import DecisionTreeClassifier
+from decision_tree import MyDecisionTree
 
 class MyRandomForest:
     def __init__(self, n_trees=100, max_features='sqrt', random_state=None):
@@ -50,7 +50,7 @@ class MyRandomForest:
             X_sample_subset = X_sample[:, feat_idx]
             
             # 3. Trenowanie drzewa
-            tree = DecisionTreeClassifier()
+            tree = MyDecisionTree()
             tree.fit(X_sample_subset, y_sample)
             
             # 4. Zapisz drzewo i wybrane cechy

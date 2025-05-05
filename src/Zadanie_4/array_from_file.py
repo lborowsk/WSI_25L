@@ -18,11 +18,5 @@ def data_from_csv(filename):
     X = data.drop('HeartDisease', axis=1).values
     y = data['HeartDisease'].values
 
-    # 5. Sprawdzenie wyników
-    print("Przykładowe dane X (pierwsze 5 wierszy):")
-    print(X[:5])
-    print("\nEtykiety y (pierwsze 5):")
-    print(y[:5])
-
     return X, y
 
